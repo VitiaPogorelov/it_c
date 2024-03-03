@@ -1,0 +1,38 @@
+#include <iostream>
+#include <unordered_set>
+
+
+int nextNumber(int n) {
+    int sum = 0;
+    while (n > 0) {
+        int digit = n % 10;
+        sum += digit * digit;
+        n /= 10;
+    }
+    return sum;
+}
+
+
+bool isLucky(int n) {
+    std::unordered_set<int> seen; 
+
+    while (n != 1 && seen.find(n) == seen.end()) {
+        seen.insert(n);
+        n = nextNumber(n);
+    }
+
+    return n == 1;
+}
+
+int main() {
+    int number;
+    std::cout << "Введите число: " ;
+    std::cin >> number ;
+    if (isLucky(number)) {
+        std::cout << number << " — счастливое число" << std::endl;
+    } else {
+        std::cout << number << " — не счастливое число" << std::endl;
+    }
+
+    return 0;
+}
